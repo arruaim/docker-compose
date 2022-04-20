@@ -1,21 +1,11 @@
 name: docker-compose-actions-workflow
-on:  
-  push:
-    tags:
-      - '*'
-env:
-  TAG: ${GITHUB_REF#refs/*/}
-
+on: push
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: |  
-          docker-compose --project-name dev-web:${{env.TAG}} pull
-          docker-compose --project-name dev-web up:${{env.TAG}} --detach
-      - name: Print TAG
-        run: echo "${{env.TAG}}"
+        run: docker-compose up -d
       - name: Test
-        run: docker run --tag --network container:webapp-frontend:${{env.TAG}} appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
