@@ -10,15 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack for TEST
-        run: docker-compose -up -d 
-      - name: Test
-        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
-      
       - name: Print TAG
         run: echo 'The TAG is${env.TAG}'
-
       - name: Build the stack for DEV
+        run: docker-compose -up -d 
       - name: DEV
         run: docker run --tag --network container:dev-webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000/
  
