@@ -8,3 +8,12 @@ services:
   redis:
     container_name: redis-backend
     image: "redis:alpine"
+  
+  dev-web:
+        container_name: dev-webapp-frontend
+        build: .
+        ports:
+         - "8000:8000"
+  dev-redis:
+    container_name: dev-redis-backend
+    image: "redis:alpine"       
