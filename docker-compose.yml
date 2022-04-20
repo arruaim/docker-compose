@@ -12,7 +12,7 @@ services:
   dev-web:
     environment:
         - TAG 
-    container_name: dev-webapp-frontend:${TAG}
+    container_name: dev-webapp-frontend
     build: .
     ports:
       - "5000:8000"
