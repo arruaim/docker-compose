@@ -18,4 +18,4 @@ services:
       - "5000:8000"
   dev-redis:
     container_name: dev-redis-backend
-    image: "redis:alpine"       
+    image: "redis:alpine:${TAG}"       
