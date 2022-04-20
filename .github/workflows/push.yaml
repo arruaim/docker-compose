@@ -12,8 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -d
+        run: |  
+          docker-compose --project-name dev-web:${{env.TAG}} pull
+          docker-compose --project-name dev-web up:${{env.TAG}} --detach
       - name: Print TAG
         run: echo "${{env.TAG}}"
       - name: Test
-        run: docker run --network container:webapp-frontend:${{env.TAG}} appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        run: docker run --tag --network container:webapp-frontend:${{env.TAG}} appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
