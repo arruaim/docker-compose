@@ -3,10 +3,10 @@ services:
   dev-web:
     environment:
         - TAG 
-    container_name: dev-webapp-frontend
+    container_name: dev-webapp-frontend:${TAG}
     build: .
     ports:
       - "5000:8000"
   dev-redis:
     container_name: dev-redis-backend
-    image: "redis:alpine:${TAG}"       
+    image: "redis:alpine"       

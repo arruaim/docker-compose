@@ -1,5 +1,11 @@
 name: docker-compose-actions-workflow
-on: push
+on:  
+  push:
+    tags:
+      - '*'
+env:
+  TAG: ${GITHUB_REF#refs/*/}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -7,5 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the stack
         run: docker-compose up -d
+      - name: Print TAG
+        run: echo 'The TAG is:${env.TAG}'
       - name: Test
-        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        run: docker run --network container:webapp-frontend:${TAG} appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
