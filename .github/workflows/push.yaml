@@ -1,5 +1,10 @@
 name: docker-compose-actions-workflow
-on: push
+on:  
+  push:
+    tags:
+      - '*'
+env:
+  TAG: ${GITHUB_REF#refs/*/}      
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,5 +14,7 @@ jobs:
         run: docker-compose up -d
       - name: Test
         run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
-
+      
+      - name: DEV
+        run: docker run --network container:dev-webapp-frontend:${env.TAG} appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
  
