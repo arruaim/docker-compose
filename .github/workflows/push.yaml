@@ -17,10 +17,9 @@ jobs:
       
       - name: Print TAG
         run: echo 'The TAG is${env.TAG}'
-     
+
       - name: Build the stack for DEV
-        run: docker-compose -up -d
+        run: docker-compose -f "docker-compose.yml" -up -d
       - name: DEV
-        
-        run: docker run --tag --network container:dev-webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+        run: docker run --tag --network container:dev-webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000/
  
