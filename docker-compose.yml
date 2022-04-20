@@ -16,4 +16,4 @@ services:
          - "8000:8000"
   dev-redis:
     container_name: dev-redis-backend
-    image: "dev-redis:alpine"       
+    image: "redis:alpine"       
